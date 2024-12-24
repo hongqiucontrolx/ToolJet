@@ -1,0 +1,90 @@
+{
+  "$schema": "https://raw.githubusercontent.com/ToolJet/ToolJet/develop/plugins/schemas/operations.schema.json",
+  "title": "Github datasource",
+  "description": "A schema defining Github datasource",
+  "type": "api",
+  "defaults": {},
+  "properties": {
+    "operation": {
+      "label": "Operation",
+      "key": "operation",
+      "type": "dropdown-component-flip",
+      "description": "Single select dropdown for operation",
+      "list": [
+        {
+          "value": "sub",
+          "name": "Subscribe Tags"
+        },
+        {
+          "value": "get_value",
+          "name": "Get value"
+        },
+        {
+          "value": "set_value",
+          "name": "Set value"
+        }
+      ]
+    },
+    "sub": {
+      "tag_ids": {
+        "label": "Tag ids",
+        "key": "tag_ids",
+        "type": "codehinter",
+        "lineNumbers": false,
+        "description": "Enter tag ids",
+        "width": "320px",
+        "height": "36px",
+        "className": "codehinter-plugins",
+        "placeholder": "Enter tag ids"
+      }
+    },
+    "get_value": {
+      "tag_ids": {
+        "label": "Tag ids",
+        "key": "tag_ids",
+        "type": "codehinter",
+        "lineNumbers": false,
+        "description": "Enter tag ids",
+        "width": "320px",
+        "height": "36px",
+        "className": "codehinter-plugins",
+        "placeholder": "Enter tag ids"
+      }
+    },
+    "set_value": {
+      "tag_id": {
+        "label": "Tag id",
+        "key": "tag_id",
+        "type": "codehinter",
+        "lineNumbers": false,
+        "description": "Enter tag id",
+        "width": "320px",
+        "height": "36px",
+        "className": "codehinter-plugins",
+        "placeholder": "Enter tag name"
+      },
+      "tag_value": {
+        "label": "Tag value",
+        "key": "tag_value",
+        "type": "codehinter",
+        "lineNumbers": false,
+        "description": "Enter value",
+        "width": "320px",
+        "height": "36px",
+        "className": "codehinter-plugins",
+        "placeholder": "Enter value"
+      },
+      "value_type": {
+        "label": "Value type",
+        "key": "value_type",
+        "type": "codehinter",
+        "lineNumbers": false,
+        "description": "Enter value type",
+        "width": "320px",
+        "height": "36px",
+        "className": "codehinter-plugins",
+        "placeholder": "Enter value type"
+      }
+    }
+  }
+}

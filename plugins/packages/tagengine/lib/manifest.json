@@ -1,0 +1,36 @@
+
+{
+  "$schema": "https://raw.githubusercontent.com/ToolJet/ToolJet/develop/plugins/schemas/manifest.schema.json",
+  "title": "TagEngine datasource",
+  "description": "A schema defining TagEngine datasource",
+  "type": "api",
+  "source": {
+    "name": "TagEngine",
+    "kind": "tagengine",
+    "exposedVariables": {
+      "isLoading": false,
+      "data": {},
+      "rawData": {}
+    },
+    "options": {
+      "url": {
+        "type": "string"
+      }
+    }
+  },
+  "defaults": {
+    "url": {
+      "value": "ws://localhost:8080"
+    }
+  },
+  "properties": {
+    "url": {
+      "label": "URL",
+      "key": "url",
+      "type": "text",
+      "description": "Enter the URL of the TagEngine server",
+      "hint": "The URL should be in the format ws://localhost:8080"
+    }
+  },
+  "required": ["url"]
+}
