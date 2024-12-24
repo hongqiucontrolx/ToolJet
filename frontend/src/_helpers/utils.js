@@ -52,7 +52,7 @@ export function resolve(data, state) {
   }
 }
 
-function resolveCode(code, state, customObjects = {}, withError = false, reservedKeyword, isJsCode) {
+function resolveCode(code, state, customObjects = {}, withError = false, reservedKeyword, isJsCode, sourceId) {
   let result = '';
   let error;
 
@@ -62,6 +62,24 @@ function resolveCode(code, state, customObjects = {}, withError = false, reserve
     //! dont resolve if code starts with "queries." and ends with "run()"
     error = `Cannot resolve function call ${code}`;
   } else {
+    // add self support
+    if (code.includes('self.')) {
+      let componentName = '';
+      const component = Object.entries(state.components).find(([key, value]) => {
+        if (value.id === sourceId) {
+          componentName = key;
+          return true;
+        }
+        return false;
+      });
+      if (component) {
+        code = code.replaceAll('self.', `components.${componentName}.`);
+      }
+    }
+
+    // {{ self.value ? ' ' : self.value }}
+    // self.value = {{components.numberinput1.value}}
+
     try {
       const evalFunction = Function(
         [
@@ -153,7 +171,16 @@ export function resolveString(str, state, customObjects, reservedKeyword, withEr
   return resolvedStr;
 }
 
-export function resolveReferences(object, defaultValue, customObjects = {}, withError = false, forPreviewBox = false) {
+export function resolveReferences(
+  object,
+  defaultValue,
+  customObjects = {},
+  withError = false,
+  forPreviewBox = false,
+  sourceId = undefined
+) {
+  // object: string = {{components.numberinput1.value}}
+
   if (object === '{{{}}}') return '';
 
   object = _.clone(object);
@@ -177,8 +204,7 @@ export function resolveReferences(object, defaultValue, customObjects = {}, with
             error = `${code} is a reserved keyword`;
             return [{}, error];
           }
-
-          return resolveCode(code, currentState, customObjects, withError, reservedKeyword, true);
+          return resolveCode(code, currentState, customObjects, withError, reservedKeyword, true, sourceId);
         } else {
           const dynamicVariables = getDynamicVariables(object);
 
